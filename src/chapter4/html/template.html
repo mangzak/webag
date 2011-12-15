@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>4장기본파일 - 4장 예제를 위한 와꾸</title>
+<script src="../js/modernizr.custom.js"></script>
+<script type="text/javascript">
+	window.addEventListener('load', eventWindowLoaded, false);
+
+	function eventWindowLoaded() {
+		canvasApp();
+	}
+
+	function canvasSupport() {
+		return Modernizr.canvas;
+	}
+
+	function canvasApp() {
+		if (!canvasSupport()) {
+			return;
+		} else {
+			var theCanvas = document.getElementById("canvas");
+			var context = theCanvas.getContext("2d");
+		}
+		drawScreen();
+		function drawScreen() {
+			//make changes here
+			context.fillStyle = '#aaaaaa';
+			context.fillRect(0, 0, 200, 200);
+			context.fillStyle = '#000000';
+			context.font = '20px _sans';
+			context.textBaseline = 'top';
+			context.fillText("Canvas!", 0, 0);
+		}
+	}
+</script>
+</head>
+<body>
+	<div style="position: absolute; top: 50px; left: 50px;">
+		<canvas id="canvas" width="500" height="500">너의 브라우저는 HTML5 Canvas를 지원하지 않는다.</canvas>
+	</div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Example 4-16. The Tile Stamper application</title>
+<script src="../js/modernizr.custom.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+	function example() {
+		var theCanvas1 = document.getElementById("canvas1");
+		var context1 = theCanvas1.getContext("2d");
+		var theCanvas2 = document.getElementById("canvas2");
+		var context2 = theCanvas2.getContext("2d");
+
+		var tileSheet = new Image();
+		tileSheet.addEventListener('load', eventSheetLoaded, false);
+		tileSheet.src = imagesPath + "tanks_sheet.png";
+
+		function eventSheetLoaded() {
+			startUp();
+		}
+
+		function startUp() {
+			context1.drawImage(tileSheet, 0, 0);
+			context2.drawImage(theCanvas1, 32, 0, 32, 32, 0, 0, 32, 32);
+		}
+	}
+</script>
+</head>
+<body>
+	<div>
+		<canvas id="canvas1" width="256" height="256" style="position: absolute; top: 50px; left: 50px;">너의 브라우저는 HTML5 Canvas를 지원하지 않는다.</canvas>
+		<canvas id="canvas2" width="32" height="32" style="position: absolute; top: 256px; left: 50px;">너의 브라우저는 HTML5 Canvas를 지원하지 않는다.</canvas>
+	</div>
+</body>
+</html>

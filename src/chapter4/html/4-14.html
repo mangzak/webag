@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Example 4-14. Pan an image with a preset zoom amount</title>
+<script src="../js/modernizr.custom.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+	function example() {
+		var photo = new Image();
+		photo.addEventListener('load', eventPhotoLoaded, false);
+		photo.src = imagesPath + "butterfly.jpg";
+
+		var windowWidth = 500;
+		var windowHeight = 375;
+		var windowX = 0;
+		var windowY = 0;
+
+		function eventPhotoLoaded() {
+			startUp();
+		}
+
+		function drawScreen() {
+			context.drawImage(photo, windowX, windowY, windowWidth, windowHeight, 0, 0, windowWidth * 2, windowHeight * 2);
+			windowX += 10;
+			if (windowX > photo.width - windowWidth) {
+				windowX = photo.width - windowWidth;
+			}
+		}
+
+		function startUp() {
+			setInterval(drawScreen, 100);
+		}
+	}
+</script>
+</head>
+<body>
+	<div style="position: absolute; top: 50px; left: 50px;">
+		<canvas id="canvas" width="500" height="500">너의 브라우저는 HTML5 Canvas를 지원하지 않는다.</canvas>
+	</div>
+</body>
+</html>

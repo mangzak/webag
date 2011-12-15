@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Example 4-4. A simple sprite animation</title>
+<script src="../js/modernizr.custom.js"></script>
+<script src="../js/base.js"></script>
+<script type="text/javascript">
+	function example() {
+		var counter = 0;
+		var tileSheet = new Image();
+		tileSheet.addEventListener('load', eventShipLoaded, false);
+		tileSheet.src = imagesPath + "ships.png";
+
+		function eventShipLoaded() {
+			startUp();
+		}
+
+		function drawScreen() {
+			//draw a background so we can see the Canvas edges
+			context.fillStyle = "#929292";
+			context.fillRect(0, 0, 500, 500);
+			context.drawImage(tileSheet, 32 * counter, 0, 32, 32, 50, 50, 64, 64);	//drawImage(Image, sx, sy, sw, sh, dx, dy, dw, dh)
+			counter++;
+			if (counter > 1) {
+				counter = 0;
+			}
+		}
+
+		function startUp() {
+			setInterval(drawScreen, 100);
+		}
+	}
+</script>
+</head>
+<body>
+	<div style="position: absolute; top: 50px; left: 50px;">
+		<canvas id="canvas" width="500" height="500">너의 브라우저는 HTML5 Canvas를 지원하지 않는다.</canvas>
+	</div>
+</body>
+</html>
