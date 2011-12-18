@@ -6,8 +6,8 @@
 <script src="../js/modernizr.custom.js"></script>
 <script src="../js/base.js"></script>
 <script type="text/javascript">
-	function example() {
 		var photo = new Image();
+	function example() {
 		photo.addEventListener('load', eventPhotoLoaded, false);
 		photo.src = imagesPath + "butterfly.jpg";
 
@@ -27,7 +27,9 @@
 		function drawScreen() {
 			//draw a background so we can see the Canvas edges
 			context.fillStyle = "#ffffff";
-			context.fillRect(0, 0, 500, 375);
+			context.fillRect(0, 0, 500, 500);
+			context.strokeStyle = "#000000";
+			context.strokeRect(0, 0, 500, 500);
 			context.drawImage(photo, windowX, windowY, windowWidth, windowHeight, 0, 0, windowWidth * currentScale, windowHeight * currentScale);
 		}
 
@@ -37,7 +39,7 @@
 
 		document.onkeydown = function(e) {
 			e = e ? e : window.event;
-			console.log(e.keyCode + "down");
+			console.log(e.keyCode + ', windowX:' + windowX + ', windowY:' + windowY + ', photo.width:' + photo.width + ', photo.height:' + photo.height + ', windowWidth:' + windowWidth + ', windowHeight:' + windowHeight);
 
 			switch (e.keyCode) {
 			case 38:
@@ -50,9 +52,11 @@
 			case 40:
 				//down
 				windowY += 10;
+				/* 
 				if (windowY > photo.height - windowHeight) {
 					windowY = photo.height - windowHeight;
 				}
+				 */
 				break;
 			case 37:
 				//left
@@ -64,12 +68,21 @@
 			case 39:
 				//right
 				windowX += 10;
+				/* 
 				if (windowX > photo.width - windowWidth) {
 					windowX = photo.width - windowWidth;
 				}
+				 */
 				break;
 			case 109:
 				//-
+				currentScale -= scaleIncrement;
+				if (currentScale < minScale) {
+					currentScale = minScale;
+				}
+				break;
+			case 189:
+				//- (chrome)
 				currentScale -= scaleIncrement;
 				if (currentScale < minScale) {
 					currentScale = minScale;
@@ -81,6 +94,14 @@
 				if (currentScale > maxScale) {
 					currentScale = maxScale;
 				}
+				break;
+			case 187:
+				//+ (chrome)
+				currentScale += scaleIncrement;
+				if (currentScale > maxScale) {
+					currentScale = maxScale;
+				}
+				break;
 			}
 		}
 	}

@@ -21,10 +21,7 @@
 			context.fillStyle = "#929292";
 			context.fillRect(0, 0, 500, 500);
 			context.drawImage(tileSheet, 32 * counter, 0, 32, 32, 50, 50, 64, 64);	//drawImage(Image, sx, sy, sw, sh, dx, dy, dw, dh)
-			counter++;
-			if (counter > 1) {
-				counter = 0;
-			}
+			counter ^= 1;	//xor
 		}
 
 		function startUp() {
