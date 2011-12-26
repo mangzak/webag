@@ -1,4 +1,5 @@
 var imagesPath = "../images/";
+var theCanvas;
 var context;
 window.addEventListener('load', eventWindowLoaded, false);
 
@@ -15,7 +16,7 @@ function canvasApp() {
 	if (!canvasSupport()) {
 		return;
 	} else {
-		var theCanvas = document.getElementById("canvas");
+		theCanvas = document.getElementById("canvas");
 		if(theCanvas != null)
 			context = theCanvas.getContext("2d");
 	}

@@ -33,9 +33,11 @@
 
 			context.save();
 			context.setTransform(1, 0, 0, 1, 0, 0);
+			
 			var angleInRadians = rotation * Math.PI / 180;
 			context.translate(x + 16, y + 16);
 			context.rotate(angleInRadians);
+			
 			var sourceX = Math.floor(animationFrames[frameIndex] % 8) * 32;
 			var sourceY = Math.floor(animationFrames[frameIndex] / 8) * 32;
 

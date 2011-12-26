@@ -32,7 +32,7 @@
 
 			var sourceX = Math.floor(animationFrames[frameIndex] % 8) * 32;
 			var sourceY = Math.floor(animationFrames[frameIndex] / 8) * 32;
-
+			console.log('frameIndex:' + frameIndex + ', sourceX:' + sourceX + ', sourceY:' + sourceY, ', dx:' + x + ', dy:' + y);
 			context.drawImage(tileSheet, sourceX, sourceY, 32, 32, x, y, 32, 32);
 			frameIndex++;
 			if (frameIndex == animationFrames.length) {

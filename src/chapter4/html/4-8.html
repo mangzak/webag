@@ -22,13 +22,13 @@
 		}
 
 		function drawScreen() {
-
 			//draw a background so we can see the Canvas edges
 			context.fillStyle = "#aaaaaa";
 			context.fillRect(0, 0, 500, 500);
 
 			context.save();
 			context.setTransform(1, 0, 0, 1, 0, 0);
+			
 			var angleInRadians = rotation * Math.PI / 180;
 			context.translate(x + 16, y + 16);
 			context.rotate(angleInRadians);
@@ -37,6 +37,7 @@
 
 			context.drawImage(tileSheet, sourceX, sourceY, 32, 32, -16, -16, 32, 32);
 			context.restore();
+			
 			frameIndex++;
 			if (frameIndex == animationFrames.length) {
 				frameIndex = 0;

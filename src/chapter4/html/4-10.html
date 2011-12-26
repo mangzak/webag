@@ -36,6 +36,7 @@
 					var tileId = tileMap[rowCtr][colCtr] + mapIndexOffset;
 					var sourceX = Math.floor(tileId % 8) * 32;
 					var sourceY = Math.floor(tileId / 8) * 32;
+					console.log('rowCtr:' + rowCtr + ', colCtr:' + colCtr + ', tileId:' + tileId + ', sourceX:' + sourceX + ', sourceY:' + sourceY);
 					context.drawImage(tileSheet, sourceX, sourceY, 32, 32, colCtr * 32, rowCtr * 32, 32, 32);
 				}
 			}
