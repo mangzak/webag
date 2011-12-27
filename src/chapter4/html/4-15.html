@@ -12,7 +12,7 @@
 		photo.src = imagesPath + "butterfly.jpg";
 
 		var windowWidth = 500;
-		var windowHeight = 375;
+		var windowHeight = 500;
 		var windowX = 0;
 		var windowY = 0;
 		var currentScale = .5;
@@ -28,9 +28,7 @@
 			//draw a background so we can see the Canvas edges
 			context.fillStyle = "#ffffff";
 			context.fillRect(0, 0, 500, 500);
-			context.strokeStyle = "#000000";
-			context.strokeRect(0, 0, 500, 500);
-			context.drawImage(photo, windowX, windowY, windowWidth, windowHeight, 0, 0, windowWidth * currentScale, windowHeight * currentScale);
+			context.drawImage(photo, windowX, windowY, windowWidth, windowHeight, 0, 0, windowWidth*currentScale, windowHeight*currentScale);
 		}
 
 		function startUp() {
@@ -52,11 +50,9 @@
 			case 40:
 				//down
 				windowY += 10;
-				/* 
 				if (windowY > photo.height - windowHeight) {
 					windowY = photo.height - windowHeight;
 				}
-				 */
 				break;
 			case 37:
 				//left
@@ -68,11 +64,9 @@
 			case 39:
 				//right
 				windowX += 10;
-				/* 
 				if (windowX > photo.width - windowWidth) {
 					windowX = photo.width - windowWidth;
 				}
-				 */
 				break;
 			case 109:
 				//-
