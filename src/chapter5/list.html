@@ -209,7 +209,7 @@
 			</ul>
 		</dd>
 		<dt>
-			<a href="5_7.html" target="_blank">5_7. 공 간의 충돌이 일어나면? (튕기는 방향 계산)</a>
+			<a href="5_7.html" target="_blank">5_7. 공 간의 충돌이 일어나면? (튕기는 방향 계산 & 마찰이 없을 때)</a>
 		</dt>
 		<dd>
 			<ul>
@@ -270,25 +270,272 @@ collide() : 서로 충돌하는 공이 있다면 그것만 방향, 속도를 다
 				<li>
 render() : 최종 그린다.<br>
 				</li>
-				<li class="q">
-					다른함수에서는 다 var ball로 선언을 하는데, update()에서만 안함. 상관없는건지?@@<br>
-				</li>
 			</ul>
 		</dd>
 		<dt>
-			<a href="5_8.html" target="_blank">5_8. 공 간의 충돌이 일어나면? (공크기 다른거)</a>
+			<a href="5_8.html" target="_blank">5_8. 공 간의 충돌이 일어나면? (튕기는 방향 계산 & 마찰이 있을 때)</a>
 		</dt>
 		<dd>
 			<ul>
 				<li class="d">
-					5_7과 동일한데, 공 크기가 다르다. 
+					5_7과 동일한데, 공이 이동하는 거리와 질량에 따라 마찰력이 작용해 시간이 지나면 공이 멈춘다. 
 				</li>
 				<li>
-					<img src="multiball.jpg" height=300>
+					<img src="friction.jpg" height=300>
+				</li>
+				<li>
+					var friction = .01 : 마찰계수를 지정해서, <br>
+					공의 속도(ball.velocityx)를 마찰계수에 비례하게(ball.velocityx*friction)차감해 간다.<br> 
+					최종적으로 속도는 0이 되어, 모두 멈추게 된다. <br>
+				</li>
+				<li>
+					* 특징 : 속도에 마찰계수를 틱 마다 동일하게 곱하여 빼기 때문에 모두 멈추는 시점이 동일하다.
 				</li>
 			</ul>
 		</dd>
-
+		<dt>
+			<a href="5_9.html" target="_blank">5_9. 원 운동 하는 공</a>
+		</dt>
+		<dd>
+			<ul>
+				<li class="d">
+					원운동 궤적의 중심을 기준으로 틱 마다 각도를 늘려가면서 거리가 R인 곳에 점을 찍어나간다. 
+				</li>
+				<li>
+					<img src="circle_ex.jpg">
+				</li>
+				<li>
+					원운동 중심점(centerX, centerY)에서 angle만큼 이동한 곳의 x,y좌표(cos각도 X r, sin각도 X r)에 점을 찍는다.<br> 
+				</li>
+				<li>
+					그 동안은 단위 원을 기준으로 얘기했기 때문에, cos각도 = x좌표, sin각도 = y좌표 였지만, <br> 
+					이 예시는 반지름이 1이 아니라 r이기 때문에 각 좌표값에 r을 곱해줘야 원하는 좌표가 나온다.<br>  
+				</li>
+			</ul>
+		</dd>
+		<dt>
+			<a href="5_10.html" target="_blank">5_10. 나선형으로 움직이는 공</a>
+		</dt>
+		<dd>
+			<ul>
+				<li class="d">
+					5_9와 동일한데, 반지름을 틱 마다 늘려서 나선형이 된다. 
+				</li>
+				<li>
+					<img src="spiral.jpg" height="300">
+				</li>
+				<li>
+					circle.angle += ball.speed : 각도를 속도에 비례하여  늘려나간다. 
+					circle.radius += radiusInc : 반지름을 지정한 길이만큼 늘려나간다.
+				</li>
+			</ul>
+		</dd>
+		<dt>
+			<a href="5_11.html" target="_blank">5_11. 3차 베지어 커브(Cubic Bezier Curve)로 움직이는 공</a>
+		</dt>
+		<dd>
+			<ul>
+				<li class="d">
+					P1과 P3를 지나며, P2 & P3가 기울기를 결정하는 곡선 위를 지난다.
+				</li>
+				<li>
+					<img src="curve.jpg" height="300">
+				</li>
+				<li>
+					<strong>베지어 곡선이란?</strong> <br>
+					곡선을 연출하기위해 사용하는 공식이다.<br>
+					프랑스의 자동차 제조사 르노사의 기술자인 피에르 베지에가 1962년 자동차 몸체 디자인에 사용하면서부터 널리 알려졌다.<br>
+					- <strong>2차 베지어 곡선</strong> : 트루타입폰트(TTF) 알고리즘에 사용.<br>
+					- <strong>3차 베지어 곡선</strong> : 원에 가까운 부드러운 곡선을 연출할때 사용한다. 메타폰트 표현 시 사용.					   
+				</li>
+				<li>
+					<span class="s"><2차 베지어 곡선></span><br>
+					<img src="240px-bezier_2_big_derision.gif" height="200"><br>
+					<img src="curve_2.jpg" height="400"><br><br>
+					- A, B, C 점이 있을 때, A & C를 지나고 B가 기울기에 영향을 미치는 곡선<br>
+					- 점과 점사이의 거리를 2로 나누어 가면서 기울기를 만들어 그린 곡선.  <br>
+					- 포토샵, 일러의 "펜툴", 플래시의 움직임 경로 구현방식이 2차 베지어 곡선.  <br>
+				</li>
+				<li>
+					<span class="s"><3차 베지어 곡선></span><br>
+					<img src="240px-bezier_3_big_derision.gif" height="200"><br>
+					<img src="curve_3.jpg" height="400"><br><br>
+					- A, B, C, D 점이 있을 때, A & D를 지나고 B & C가 기울기에 영향을 미치는 곡선<br>
+					- 점과 점사이의 거리를 3으로 나누어 가면서 1/3지점끼리 엮어 기울기를 만들어 그린 곡선.<br>
+					- 2차에 비해 상대적으로 더 부드러운 곡선이 그려진다.<br>
+					- 계산식을 유도하는 부분은 여기를 참고. <a href="http://baboc.tistory.com/130" target="_blank">http://baboc.tistory.com/130</a><br>
+					- 개념이해는 여기를 참고. <a href="http://autosave.tistory.com/57" target="_blank">http://autosave.tistory.com/57</a>  
+				</li>
+				<li>
+					<span class="s"><3차 베지어 곡선 - 삼차함수 그래프의 이해></span><br>
+					
+					3차 베지어 커브의 일반식을 유도하기 위한 조건은 다음과 같다.<br>
+					<br>
+					1. 컨트롤 포인트는 4개이다. (P0, P1, P2, P3)<br>
+					2. 곡선은 첫번째 포인트와 마지막 포인트를 지난다.<br>
+					3. 곡선의 첫 지점에서의 기울기는 P0 과 P1 을 이은 직선의 기울기의 3배이다.<br>
+					4. 곡선의 마지막 지점에서의 기울기는 P2 와 P3 을 이은 직선의 기울기의 3배이다.<br>
+					<br>
+					3차 베지어 커브를 표현하기위해서는 3차함수가 필요하다.<br> 
+					<br>
+					p(u)= c0 + c1u + c2u^2 + c3u^3 <br><br><br>
+					이 기본 형태를 각 점의 좌표값(P0, P1, P2, P3)을 기반으로 함수로 변형하면 다음과 같다.<br><br>
+					<img src="function.jpg"><br><br><br>
+					
+				</li>
+				<li>
+					<span class="s"><4차 베지어 곡선></span><br>
+					<img src="240px-bezier_4_big_derision.gif" height="200"><br>
+				</li>
+			</ul>
+		</dd>
+		<dt>
+			<a href="5_12.html" target="_blank">5_12. 3차 베지어 커브로 움직이는 이미지 (완만한 곡선)</a>
+		</dt>
+		<dd>
+			<ul>
+				<li class="d">
+					5_12와 동일한데 움직이는 개체가 이미지로 변경된 것 뿐이다. 
+				</li>
+				<li>
+					<img src="curve_img.jpg" height="300">
+				</li>
+				<li>
+					원운동 중심점(centerX, centerY)에서 angle만큼 이동한 곳의 x,y좌표(cos각도 X r, sin각도 X r)에 점을 찍는다.<br> 
+				</li>
+				<li>
+					그 동안은 단위 원을 기준으로 얘기했기 때문에, cos각도 = x좌표, sin각도 = y좌표 였지만, <br> 
+					이 예시는 반지름이 1이 아니라 r이기 때문에 각 좌표값에 r을 곱해줘야 원하는 좌표가 나온다.<br>  
+				</li>
+			</ul>
+		</dd>
+		<dt>
+			<a href="5_13.html" target="_blank">5_13. 3차 베지어 커브로 움직이는 이미지(꼬인 곡선)</a>
+		</dt>
+		<dd>
+			<ul>
+				<li class="d">
+					5_13과 동일한데 P0~3 위치가 바뀐 것 뿐이다. <br>  
+				</li>
+				<li>
+					<img src="curve_roll.jpg" height="300">
+				</li>
+			</ul>
+		</dd>
+		<dt>
+			<a href="5_14.html" target="_blank">5_14. 간략한 중력 표현 (다른 효과 배제)</a><br>  
+		</dt>
+		<dd>
+			<ul>
+				<li class="d">
+					angle만큼의 기울기를 가지고 직선운동하는 개체에,  <br>  
+					중력 수치를 중복으로 더해서 바닥으로 끌어내린다. <br>  
+				</li>
+				<li>
+					<img src="gravity14.jpg" height="300">
+				</li>
+				<li>
+					ball.velocityy += gravity; : Y축 방향으로 중력의 가속도를 받도록, Y축 방향 속도에 틱마다 중력 수치를  계속 더 한다.<br> 
+				</li>
+			</ul>
+		</dd>
+		<dt>
+			<a href="5_15.html" target="_blank">5_15. 간략한 중력 표현 (튕김효과 적용)</a><br>  
+		</dt>
+		<dd>
+			<ul>
+				<li class="d">
+					5_14랑 동일한데 바닥에 닿으면 속도를 반대로 바꿔서 튕기는 효과를 준다. <br>  
+				</li>
+				<li>
+					<img src="gravity15.jpg" height="300">
+				</li>
+				<li>
+					if ((ball.y + ball.radius) > theCanvas.height) {<br>  
+						ball.velocityy = -(ball.velocityy)<br>  
+					} <br>  
+					<br>  
+					아래쪽으로 좌표가 증가하므로 바닥아래로 내려가려고 하는 시점이 캔버스 높이보다 값이 커지는 시점이다.<br>   
+					이때 속도의 방향을 반대로 바꿔서 튕기는 효과를 낸다.<br>  
+				</li>
+			</ul>
+		</dd>
+		<dt>
+			<a href="5_16.html" target="_blank">5_16. 리얼한 중력 표현 (튕길 때 공의 탄력 추가 표현)</a><br>  
+		</dt>
+		<dd>
+			<ul>
+				<li class="d">
+					5_15랑 동일한데 바닥에서 튕길때는 속도가 빠르고, 최고점으로 올라갈수록 속도가 감소하여 0 이된다. 이렇게 하면 더 리얼하게 중력이 표현된다.<br>  
+				</li>
+				<li>
+					<img src="gravity16.jpg" height="300">
+				</li>
+				<li>
+					if ((ball.y + ball.radius) > theCanvas.height) {<br>
+						ball.velocityy = -(ball.velocityy)*ball.elasticity;<br>
+					}<br>
+					<br>
+					최고점에 도달할때까지 탄력만큼 속도를 누적 감소시킨다.<br> 
+				</li>
+			</ul>
+		</dd>
+		<dt>
+			<a href="5_17.html" target="_blank">5_17. 리얼한 중력 표현 (마찰 효과 포함)</a><br>  
+		</dt>
+		<dd>
+			<ul>
+				<li class="d">
+					5_16랑 동일한데 마찰력이 작용해 중간에 멈춘다.<br>  
+				</li>
+				<li>
+					<img src="gravity17.jpg" height="300">
+				</li>
+				<li>
+					ball.velocityx = ball.velocityx - ( ball.velocityx*friction);
+					<br>
+					X축 방향으로 멈출 때까지 마찰력이 작용한다.<br> 
+				</li>
+			</ul>
+		</dd>
+		<dt>
+			<a href="5_18.html" target="_blank">5_18. 착륙(감속)</a><br>  
+		</dt>
+		<dd>
+			<ul>
+				<li class="d">
+					점차 속도가 줄어 멈추게끔 틱 당 지속적으로 간격을 줄인다.
+				</li>
+				<li>
+					<img src="easing.jpg" height="300">
+				</li>
+				<li>
+					var dx = ship.endx - ship.x;<br> 
+					var dy = ship.endy - ship.y;<br> 
+					<br>
+					끝점으로 다가갈수록 이동하는 x,y 좌표의 간격을 점점 줄인다. 최종적으로 멈추게 됨.<br> 
+				</li>
+			</ul>
+		</dd>
+		<dt>
+			<a href="5_19.html" target="_blank">5_19. 이륙(가속)</a><br>  
+		</dt>
+		<dd>
+			<ul>
+				<li class="d">
+					점차 속도가 빨라지게끔 틱 당 지속적으로 간격을 늘인다.  
+				</li>
+				<li>
+					<img src="takeoff.jpg" height="300">
+				</li>
+				<li>
+					ship.velocityx = ship.velocityx + ( ship.velocityx*easeValue);<br>
+					ship.velocityy = ship.velocityy + ( ship.velocityy*easeValue);<br>
+					<br>
+					끝점으로 다가갈수록 이동하는 x,y 좌표의 간격을 점점 늘린다. 최종적으로 화면에서 사라짐.<br> 
+				</li>
+			</ul>
+		</dd>
 	</dl>
 </body>
 </html>

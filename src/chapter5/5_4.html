@@ -36,11 +36,11 @@
 		context.beginPath(); context.arc(ball.x,ball.y,15,0,Math.PI*2,true); context.closePath(); 
 		context.fill();
 
-		if (ball.x > theCanvas.width-15 || ball.x < 15 ) {
+		if (ball.x > theCanvas.width || ball.x < 0 ) {
 			angle = 180 - angle;
 			updateBall();
 
-		} else if (ball.y > theCanvas.height-15 || ball.y < 15) {
+		} else if (ball.y > theCanvas.height || ball.y < 0) { 
 			angle = 360 - angle; updateBall();
 		}
 	}
