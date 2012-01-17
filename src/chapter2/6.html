@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ch2BaseFile - Template For Chapter 2 Examples</title>
+<script src="http://www.modernizr.com/downloads/modernizr-1.6.min.js"></script>
+
+<script type="text/javascript">
+window.addEventListener('load', eventWindowLoaded, false);
+function eventWindowLoaded() {
+canvasApp();
+}
+function canvasSupport () {
+return Modernizr.canvas;
+}
+function canvasApp(){
+if (!canvasSupport()) {
+return;
+}else{
+var theCanvas = document.getElementById("canvas");
+var context = theCanvas.getContext("2d");
+}
+drawScreen();
+
+
+function drawScreen() {
+
+context.beginPath();
+context.strokeStyle = "black";
+context.lineWidth = 5;
+
+context.moveTo(0,100);
+
+//0, 100 좌표에서 시작하여 25,25 좌표를 가는 직선과 25,25 에서 100,100 좌표로 가는 직선 두개를 만나는 반지름 25 를 갖는 곡선을 중간에 그린다.
+context.arcTo(25,25, 100, 100, 25); 
+context.stroke();
+context.closePath();
+
+}
+
+}
+
+</script>
+</head>
+<body>
+<div style="position: absolute; top: 50px; left: 50px;">
+<canvas id="canvas" width="500" height="500" style="border:solid 1px #000000;">
+Your browser does not support HTML5 Canvas.
+</canvas>
+</div>
+</body>
+</html>
